@@ -12,12 +12,7 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request['email'])->where('email_verified_at', '<>', NULL)->first();
         
-        if(!$user) {
-            return [
-                'message' => 'Je moet eerst je email adres bevestigen voordat je toegang hebt tot je account',
-                'verified' => "false"            
-            ];                       
-        };
+
 
         $request->validate([
             'email' => ['required'],
@@ -25,13 +20,28 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
+
+            if(!$user) {
+                return [
+                    'message' => 'Je moet eerst je email adres bevestigen voordat je toegang hebt tot je account',
+                   'verified' => "false"            
+                ];                       
+           }
+           else{
             return response()->json(Auth::user(), 200);
+
+           }
+
+        }
+        else{ 
+   
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.']
+            ]);
         }
 
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.']
-        ]);
-    }
+        }
+
 
     public function logout()
     {

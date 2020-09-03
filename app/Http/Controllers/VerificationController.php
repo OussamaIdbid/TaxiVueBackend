@@ -29,7 +29,7 @@ class VerificationController extends Controller
 
         if ($user->hasVerifiedEmail()) {
                 return response()->json([
-                    "message" => "User already verified",
+                    "message" => "Je email is al bevestigd",
                     "success" => false
                 ]);
 
@@ -47,7 +47,7 @@ class VerificationController extends Controller
         // }
 
         return response()->json([
-            "message" => "Email verified succesfully!",
+            "message" => "Je email is bevestigd!",
             "success" => "true"
         ]);
     
