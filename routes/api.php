@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/edit/user','UserController@edit');
 Route::middleware('auth:sanctum')->post('/edit/user','UserController@update');
 Route::middleware('auth:sanctum')->post('/edit/password/user','UserController@passwordUpdate');
 
-
+Route::get('/email-verification', 'VerificationController@verify')->name('verification.verify');
 Route::post('/register', 'RegisterController@register');
 Route::post('/login', 'LoginController@login');
 Route::post('/logout', 'LoginController@logout');
