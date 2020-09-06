@@ -7,18 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class VerifyNotification extends Notification
+class ResetPasswordNotification extends Notification
 {
     use Queueable;
+
+    public $token;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token)
     {
-        //
+        $this->token = $token;
     }
 
     /**
@@ -40,20 +42,13 @@ class VerifyNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $params = [
 
-            "id" => $notifiable->getKey(),
-            "hash" => sha1($notifiable->getEmailForVerification()),
-        ];
+        $forgotPasswordUrl = config('frontend.reset_password_url') . "?token={$this->token}";
 
-        $url = env('SANCTUM_STATEFUL_DOMAINS') . '/verify-email?';
-
-        foreach ($params as $key => $param) {
-            $url .= "{$key}={$param}&";
-        }
         return (new MailMessage)
-                    ->line('Email bevestiging voor account bij Taxi Lagelanden')
-                    ->action('Bevestig email', $url);
+                    ->line('Klik op de onderstaande knop om je wachtwoord te resetten')
+                    ->action('Reset wachtwoord', $forgotPasswordUrl);
+
     }
 
     /**

@@ -27,3 +27,6 @@ Route::get('/email-verification', 'VerificationController@verify')->name('verifi
 Route::post('/register', 'RegisterController@register');
 Route::post('/login', 'LoginController@login');
 Route::post('/logout', 'LoginController@logout');
+
+Route::post('/forgot-password', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot-password');
+Route::post('/reset-password', 'ResetPasswordController@reset')->name('reset-password');
