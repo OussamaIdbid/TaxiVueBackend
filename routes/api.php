@@ -30,3 +30,16 @@ Route::post('/logout', 'LoginController@logout');
 
 Route::post('/forgot-password', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot-password');
 Route::post('/reset-password', 'ResetPasswordController@reset')->name('reset-password');
+
+Route::post('/payment/{price}', 'PaymentController@preparePayment');
+Route::post('/webhook', 'PaymentController@handleWebhookNotification');
+
+
+
+Route::middleware('auth:sanctum')->post('/reservations', 'ReservationController@create');
+Route::middleware('auth:sanctum')->get('/reservations', 'ReservationController@showByUser');
+Route::middleware('auth:sanctum')->get('/reservation/{orderID}', 'ReservationController@showByReservation');
+
+Route::middleware('auth:sanctum')->get('/allReservations', 'ReservationController@index');
+Route::middleware('auth:sanctum')->get('/reservations/{reservation}', 'ReservationController@show');
+
