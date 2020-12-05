@@ -35,7 +35,6 @@ Route::post('/payment/{price}', 'PaymentController@preparePayment');
 Route::post('/webhook', 'PaymentController@handleWebhookNotification');
 
 
-
 Route::middleware('auth:sanctum')->post('/reservations', 'ReservationController@create');
 Route::middleware('auth:sanctum')->get('/reservations', 'ReservationController@showByUser');
 Route::middleware('auth:sanctum')->get('/reservation/{orderID}', 'ReservationController@showByReservation');
