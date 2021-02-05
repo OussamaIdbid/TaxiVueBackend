@@ -32,6 +32,9 @@ Route::post('/forgot-password', 'ForgotPasswordController@sendResetLinkEmail')->
 Route::post('/reset-password', 'ResetPasswordController@reset')->name('reset-password');
 
 Route::post('/payment/{price}', 'PaymentController@preparePayment');
+Route::post('/payment/{paymentId}/{refundPrice}', "PaymentController@refundPayment");
+Route::post('/payment/{paymentId}/{refundId}', "PaymentController@GetRefund");
+
 Route::post('/webhook', 'PaymentController@handleWebhookNotification');
 
 

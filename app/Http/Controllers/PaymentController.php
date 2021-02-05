@@ -10,6 +10,8 @@ class PaymentController extends Controller
 {
         public function preparePayment($price)
         {
+            $randomString = Str::random(32);
+
             $payment = Mollie::api()->payments->create([
                 "amount" => [
                     "currency" => "EUR",
@@ -19,15 +21,11 @@ class PaymentController extends Controller
                 "redirectUrl" => 'http://localhost:8080/',
                 "webhookUrl" => 'https://c0400f7d2b99.ngrok.io',
                 "metadata" => [
-                    "order_id" => "12345",
+                    "order_id" => $randomString,
                 ],
             ]);
-            
-
 
             $payment = Mollie::api()->payments->get($payment->id);
-
-            $randomString = Str::random(32);
 
             $payment->redirectUrl = 'http://localhost:8080/payment/' ."?orderID={$randomString}" . "&paymentID={$payment->id}";
             
@@ -43,6 +41,25 @@ class PaymentController extends Controller
             return $payment->getCheckoutUrl();
             
         }
+        public function refundPayment($paymentId, $refundPrice) {
+
+            $payment = Mollie::api()->payments->get($paymentId);
+            $refund = $payment->refund([
+                "amount" => [
+                    "currency" => "EUR",
+                    "value" => $refundPrice
+                ]
+            ]);
+
+            return response()->json($refund);
+
+        }
+
+        public function getRefund($paymentId, $refundId){
+            $refund = $mollie->payments->get($paymentId)->getRefund($refundId);
+
+            return response()->json($refund);
+        }
         /**
          * After the customer has completed the transaction,
          * you can fetch, check and process the payment.
@@ -55,6 +72,6 @@ class PaymentController extends Controller
 
             return response()->json($payment);
  
-}
+        }
 
 }
