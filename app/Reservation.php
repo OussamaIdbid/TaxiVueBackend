@@ -15,6 +15,8 @@ class Reservation extends Model
     protected $fillable = [
         'start_address',
         'end_address',
+        'start_address_geo',
+        'end_address_geo',
         'amount_of_people',
         'pickup_date',
         'fare_price',

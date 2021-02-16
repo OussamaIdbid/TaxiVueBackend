@@ -46,6 +46,8 @@ class ReservationController extends Controller
         $request->validate([
             'start_address' => ['required', 'max:255'],
             'end_address' => ['required', 'max:255'],
+            'start_address_geo' => ['required', 'max:255'],
+            'end_address_geo' => ['required', 'max:255'],
             'amount_of_people' => ['required', 'max:255'],
             'pickup_date' => ['required'],
             'fare_price' => ['required'],

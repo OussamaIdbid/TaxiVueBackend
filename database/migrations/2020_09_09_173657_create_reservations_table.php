@@ -17,10 +17,19 @@ class CreateReservationsTable extends Migration
             $table->id();
             $table->string('start_address', 250);
             $table->string('end_address', 250);
-            $table->integer('amount_of_people');
+            $table->string('start_address_geo', 250);
+            $table->string('end_address_geo', 250);
+            $table->string('amount_of_people');
+
+
             $table->string('pickup_date');
-            $table->string('pickup_time');
-            $table->integer('status_id');
+            $table->double('fare_price');
+            $table->string('travel_time');
+            $table->string('map_url');
+            $table->integer('distance');
+            $table->string('payment_id');
+            $table->string('order_id');
+            $table->string('status');
             $table->bigInteger('user_id');
             $table->timestamps();
         });
