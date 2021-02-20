@@ -20,8 +20,6 @@ class CreateReservationsTable extends Migration
             $table->string('start_address_geo', 250);
             $table->string('end_address_geo', 250);
             $table->string('amount_of_people');
-
-
             $table->string('pickup_date');
             $table->double('fare_price');
             $table->string('travel_time');
@@ -31,6 +29,8 @@ class CreateReservationsTable extends Migration
             $table->string('order_id');
             $table->string('status');
             $table->bigInteger('user_id');
+            $table->integer('refundIsAsked')->default('0');
+            $table->integer('orderIsComplete')->default('0');
             $table->timestamps();
         });
     }

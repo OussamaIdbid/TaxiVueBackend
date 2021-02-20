@@ -27,6 +27,8 @@ class Reservation extends Model
         'payment_id',
         'status',
         'user_id',
+        'refundIsAsked',
+        'orderIsComplete',
         'created_at', 
         'updated_at'
     ];

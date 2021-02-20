@@ -57,6 +57,8 @@ class ReservationController extends Controller
             'payment_id' => [],
             'order_id' => [],
             'status' => [],
+            'refundIsAsked' => [],
+            'orderIsComplete' => [],
             'user_id' => ['required', 'integer']
         ]);
 
@@ -90,7 +92,7 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        //
+        
     }
 
     /**
@@ -100,9 +102,32 @@ class ReservationController extends Controller
      * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'start_address' => ['required', 'max:255'],
+            'end_address' => ['required', 'max:255'],
+            'start_address_geo' => ['required', 'max:255'],
+            'end_address_geo' => ['required', 'max:255'],
+            'amount_of_people' => ['required', 'max:255'],
+            'pickup_date' => ['required'],
+            'fare_price' => ['required'],
+            'distance' => ['required'],
+            'travel_time' => ['required'],
+            'map_url' => ['required'],
+            'payment_id' => [],
+            'order_id' => [],
+            'status' => [],
+            'refundIsAsked' => [],
+            'orderIsComplete' => [],
+            'user_id' => ['required', 'integer']
+        ]);
+        
+        $reservation = Reservation::findOrFail($id);
+        $reservation->update($request->all());
+
+        return response()->json($reservation, 200);
+
     }
 
     /**
