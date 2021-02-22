@@ -46,6 +46,7 @@ class ReservationConfirmation extends Notification
     {
         $url = env('SANCTUM_STATEFUL_DOMAINS') . '/dashboard';
         return (new MailMessage)
+                    ->subject('Reservering Bevestiging')
                     ->greeting("Hallo, " . $this->name . "!")
                     ->line("Ga naar je account overzicht om je reservering te bekijken")
                     ->action('Account Overzicht', $url)

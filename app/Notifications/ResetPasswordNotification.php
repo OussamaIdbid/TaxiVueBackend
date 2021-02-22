@@ -46,6 +46,7 @@ class ResetPasswordNotification extends Notification
         $forgotPasswordUrl = config('frontend.reset_password_url') . "?token={$this->token}";
 
         return (new MailMessage)
+                    ->subject('Wachtwoord Reset')
                     ->line('Klik op de onderstaande knop om je wachtwoord te resetten')
                     ->action('Reset wachtwoord', $forgotPasswordUrl)
                     ->salutation(' ');

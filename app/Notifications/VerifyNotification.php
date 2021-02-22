@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+
 class VerifyNotification extends Notification
 {
     use Queueable;
@@ -18,7 +19,7 @@ class VerifyNotification extends Notification
      */
     public function __construct()
     {
-        //
+ 
     }
 
     /**
@@ -52,6 +53,8 @@ class VerifyNotification extends Notification
             $url .= "{$key}={$param}&";
         }
         return (new MailMessage)
+                    ->subject('Account Bevestiging')
+                    ->greeting("Hallo!")
                     ->line('Email bevestiging voor account bij Taxi Lagelanden')
                     ->action('Bevestig email', $url)
                     ->salutation("Welkom bij Taxi Lagelanden!");

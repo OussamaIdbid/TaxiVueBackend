@@ -45,6 +45,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Reservation');
     }  
 
+    public function userTypes()
+    {
+        return $this->belongsTo('App\UserType');
+    } 
      public function sendEmailVerificationNotification()
      {
             $this->notify(new VerifyNotification());
