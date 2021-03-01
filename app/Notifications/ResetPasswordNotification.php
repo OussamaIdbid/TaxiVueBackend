@@ -47,6 +47,7 @@ class ResetPasswordNotification extends Notification
 
         return (new MailMessage)
                     ->subject('Wachtwoord Reset')
+                    ->greeting('Hallo!')
                     ->line('Klik op de onderstaande knop om je wachtwoord te resetten')
                     ->action('Reset wachtwoord', $forgotPasswordUrl)
                     ->salutation(' ');
