@@ -44,5 +44,6 @@ Route::middleware('auth:sanctum')->get('/reservations', 'ReservationController@s
 Route::middleware('auth:sanctum')->get('/reservation/{orderID}', 'ReservationController@showByReservation');
 
 Route::middleware('auth:sanctum')->get('/allReservations', 'ReservationController@index');
+Route::get('/reservationsByPage', 'ReservationController@showByPage');
 Route::middleware('auth:sanctum')->get('/reservations/{reservation}', 'ReservationController@show');
 
