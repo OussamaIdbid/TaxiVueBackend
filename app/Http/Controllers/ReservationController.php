@@ -24,9 +24,6 @@ class ReservationController extends Controller
 
     public function showByUser(Request $request)
     {
-        // $reservations = $request->user()->reservations;
-
-        // return response()->json($reservations);
         return $request->user()->reservations;
     }
 

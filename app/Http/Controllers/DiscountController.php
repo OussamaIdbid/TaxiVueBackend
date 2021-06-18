@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Discount;
+use App\Reservation;
 
 class DiscountController extends Controller
 {
