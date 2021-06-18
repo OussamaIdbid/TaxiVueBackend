@@ -22,6 +22,13 @@ class ReservationController extends Controller
         
     }
 
+    public function showByPage(Request $request)
+    {
+       $reservations = Reservation::paginate(5);
+
+       return response()->json($reservations);
+    }
+
     public function showByUser(Request $request)
     {
         return $request->user()->reservations;
@@ -50,7 +57,6 @@ class ReservationController extends Controller
             'fare_price' => ['required'],
             'distance' => ['required'],
             'travel_time' => ['required'],
-            'map_url' => ['required'],
             'payment_id' => [],
             'order_id' => [],
             'status' => [],
