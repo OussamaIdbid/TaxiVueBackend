@@ -22,7 +22,6 @@ class Reservation extends Model
         'fare_price',
         'distance',
         'travel_time',
-        'map_url',
         'order_id',
         'payment_id',
         'status',
