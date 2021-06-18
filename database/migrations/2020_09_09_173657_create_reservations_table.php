@@ -23,8 +23,7 @@ class CreateReservationsTable extends Migration
             $table->string('pickup_date');
             $table->double('fare_price');
             $table->string('travel_time');
-            $table->string('map_url',500);
-            $table->integer('distance');
+            $table->string('distance', 250);
             $table->string('payment_id');
             $table->string('order_id');
             $table->string('status');
