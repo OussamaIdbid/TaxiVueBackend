@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use App\User;
 
-class ReservationConfirmation extends Notification
+class RefundStatus extends Notification
 {
     use Queueable;
     public $reservation;
@@ -22,7 +21,6 @@ class ReservationConfirmation extends Notification
     {
         $this->reservation = $reservation;
         $this->name = $name;
-
     }
 
     /**
@@ -44,14 +42,29 @@ class ReservationConfirmation extends Notification
      */
     public function toMail($notifiable)
     {
+        $refundString = "";
+        $refundString2 = "";
         $url = env('SANCTUM_STATEFUL_DOMAINS') . '/dashboard';
+
+        if ($this->reservation->refundIsAsked && $this->reservation->refundIsDenied) {
+            $refundString = "Je terugbetalingverzoek met ordernummer #" . $this->reservation->order_id . " is helaas geweigerd";
+        } elseif ($this->reservation->refundIsAsked && $this->reservation->refundIsConfirmed) {
+            $refundString = "Je terugbetalingverzoek met ordernummer #" . $this->reservation->order_id . " is geaccepteerd!";
+            $refundString2 = "Je krijgt zo snel mogelijk je geld teruggestort.";
+
+        } else {
+            $refundString = "Je terugbetalingverzoek met ordernummer #" . $this->reservation->order_id ." is in behandeling";
+            $refundString2 = "We gaan er zo snel mogelijk mee aan de slag!";
+
+        }
         return (new MailMessage)
-                    ->subject('Reservering Bevestiging')
-                    ->greeting("Hallo, " . $this->name . "!")
-                    ->line("Je reservering met order nummer #" . $this->reservation->order_id . " is bevestigd.")
-                    ->line("Ga naar je account overzicht om je reservering te bekijken")
-                    ->action('Account Overzicht', $url)
-                    ->salutation(" ");
+            ->subject('Terugbetaling')
+            ->greeting("Hallo, " . $this->name . "!")
+            ->line($refundString)
+            ->line($refundString2)
+            ->line("Ga naar je account overzicht om je terugbetalingverzoek te bekijken")
+            ->action('Account Overzicht', $url)
+            ->salutation(" ");
     }
 
     /**

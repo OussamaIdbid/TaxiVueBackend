@@ -30,6 +30,9 @@ class CreateReservationsTable extends Migration
             $table->bigInteger('user_id');
             $table->integer('refundIsAsked')->default('0');
             $table->integer('orderIsComplete')->default('0');
+            $table->string('refundIsAskedDate');
+            $table->integer('refundIsConfirmed')->default('0');
+            $table->integer('refundIsDenied')->default('0');
             $table->timestamps();
         });
     }

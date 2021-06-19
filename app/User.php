@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\RefundStatus;
 use App\Notifications\VerifyNotification;
 use App\Notifications\ResetPasswordNotification;
 use App\Notifications\ReservationConfirmation;
@@ -60,5 +61,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendReservationConfirmation($reservation, $name)
     {
         $this->notify(new ReservationConfirmation($reservation, $name));
+    }
+    public function sendRefundStatus($reservation, $name)
+    {
+        $this->notify(new RefundStatus($reservation, $name));
     }
 }

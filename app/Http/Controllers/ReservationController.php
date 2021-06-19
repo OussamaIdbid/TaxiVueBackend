@@ -16,17 +16,16 @@ class ReservationController extends Controller
      */
     public function index(Request $request)
     {
-         $reservations = Reservation::all();
+        $reservations = Reservation::all();
 
         return response()->json($reservations);
-        
     }
 
     public function showByPage(Request $request)
     {
-       $reservations = Reservation::paginate(5);
+        $reservations = Reservation::paginate(5);
 
-       return response()->json($reservations);
+        return response()->json($reservations);
     }
 
     public function showByUser(Request $request)
@@ -35,8 +34,8 @@ class ReservationController extends Controller
     }
 
     public function showByReservation($orderID)
-    {   
-        $reservation = Reservation::where("order_id","=", $orderID)->firstOrFail();
+    {
+        $reservation = Reservation::where("order_id", "=", $orderID)->firstOrFail();
 
         return response()->json($reservation);
     }
@@ -62,6 +61,9 @@ class ReservationController extends Controller
             'status' => [],
             'refundIsAsked' => [],
             'orderIsComplete' => [],
+            'refundIsAskedDate' => [],
+            'refundIsConfirmed' => [],
+            'refundIsDenied' => [],
             'user_id' => ['required', 'integer']
         ]);
 
@@ -69,10 +71,10 @@ class ReservationController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        $user->sendReservationConfirmation($reservation,$user->name);
+        $user->sendReservationConfirmation($reservation, $user->name);
 
-    
-        
+
+
         // sendReservationConfirmation()
         return response()->json($reservation, 201);
     }
@@ -95,7 +97,6 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        
     }
 
     /**
@@ -105,7 +106,7 @@ class ReservationController extends Controller
      * @param  \App\Reservation  $reservation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $userId)
     {
         $request->validate([
             'start_address' => ['required', 'max:255'],
@@ -117,20 +118,25 @@ class ReservationController extends Controller
             'fare_price' => ['required'],
             'distance' => ['required'],
             'travel_time' => ['required'],
-            'map_url' => ['required'],
             'payment_id' => [],
             'order_id' => [],
             'status' => [],
             'refundIsAsked' => [],
             'orderIsComplete' => [],
+            'refundIsAskedDate' => [],
+            'refundIsConfirmed' => [],
+            'refundIsDenied' => [],
             'user_id' => ['required', 'integer']
         ]);
-        
+
         $reservation = Reservation::findOrFail($id);
         $reservation->update($request->all());
 
-        return response()->json($reservation, 200);
+        $user = User::find($userId);
 
+        $user->sendRefundStatus($reservation, $user->name);
+
+        return response()->json($reservation, 200);
     }
 
     /**

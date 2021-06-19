@@ -28,7 +28,10 @@ class Reservation extends Model
         'user_id',
         'refundIsAsked',
         'orderIsComplete',
-        'created_at', 
+        'refundIsAskedDate',
+        'refundIsConfirmed',
+        'refundIsDenied',
+        'created_at',
         'updated_at'
     ];
 
@@ -37,16 +40,15 @@ class Reservation extends Model
         return $this->belongsTo('App\Status');
     }
 
-    public function user() 
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-        /**
+    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
     protected $hidden = [];
-
 }

@@ -39,7 +39,7 @@ Route::post('/webhook', 'PaymentController@handleWebhookNotification');
 
 
 Route::middleware('auth:sanctum')->post('/reservations', 'ReservationController@create');
-Route::middleware('auth:sanctum')->post('/reservations/update/{id}', 'ReservationController@update');
+Route::middleware('auth:sanctum')->post('/reservations/update/{id}/{userId}', 'ReservationController@update');
 Route::middleware('auth:sanctum')->get('/reservations', 'ReservationController@showByUser');
 Route::middleware('auth:sanctum')->get('/reservation/{orderID}', 'ReservationController@showByReservation');
 
