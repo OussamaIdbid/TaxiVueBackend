@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
         public function preparePayment($price)
         {
-            $randomString = Str::random(32);
+            $randomString = Str::random(20);
 
             $payment = Mollie::api()->payments->create([
                 "amount" => [
