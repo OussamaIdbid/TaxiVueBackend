@@ -48,4 +48,5 @@ Route::middleware('auth:sanctum')->get('/reservationsByPage', 'ReservationContro
 Route::middleware('auth:sanctum')->get('/reservations/{reservation}', 'ReservationController@show');
 
 Route::get('/discount/{code}', 'DiscountController@showByDiscount');
-
+Route::get('/discount-user', 'UserDiscountController@getAllUserDiscount');
+Route::post('/discount-user', 'UserDiscountController@createUserDiscount');
