@@ -10,5 +10,6 @@ class Discount extends Model
         'code',
         'value',
         'type',
+        'expire_date'
     ];
 }
