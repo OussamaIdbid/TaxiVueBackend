@@ -18,6 +18,7 @@ class CreateDiscountsTable extends Migration
             $table->string('code');
             $table->string('value');
             $table->integer('type');
+            $table->date('expire_date');
             $table->timestamps();
         });
     }
